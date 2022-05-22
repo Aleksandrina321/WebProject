@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- Bootstrap CSS -->
+        <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" >
+        
+        <title></title>
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="text-center mt-3 mb-3"><%= title %></h1>
+            
+            <% if(action == 'add') { %>
+
+            <div class="card">
+                <div class="card-header">Sample Form</div>
+                <div class="card-body">
+                    <form method="POST" action="/add_sample_data">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>Full Name</label>
+                                    <input type="text" name="full_names" id="full_names" class="form-control" required />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>Address</label>
+                                    <input type="text" name="address" id="address" class="form-control" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>Phone Number</label>
+                                    <input type="text" pattern="[\+\d\s]*" name="phone_number" id="phone_number" minlength="6" class="form-control" required />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>Department</label>
+                                    <input type="text" name="department" id="department" class="form-control" required />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>Position</label>
+                                    <input type="text" name="position" id="position" class="form-control" required />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>Salary</label>
+                                    <input type="number" name="salary" id="salary" class="form-control" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <input type="submit" name="add_sample_data" class="btn btn-primary" value="Add" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <% } else if(action == 'edit') { %>
+                <div class="card">
+                    <div class="card-header">Sample Form</div>
+                    <div class="card-body">
+                        <form method="POST" action="/edit/<%= sampleData.id %>">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label>Full Name</label>
+                                        <input type="text" name="full_names" id="full_names" class="form-control" value="<%= sampleData.full_names %>" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label>Address</label>
+                                        <input type="text" name="address" id="address" class="form-control" value="<%= sampleData.address %>" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label>Phone Number</label>
+                                        <input type="text" pattern="[\+\d\s]*" name="phone_number" id="phone_number" minlength="6" class="form-control" value="<%= sampleData.phone_number %>" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label>Department</label>
+                                        <input type="text" name="department" id="department" class="form-control" value="<%= sampleData.department %>" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label>Position</label>
+                                        <input type="text" name="position" id="position" class="form-control" value="<%= sampleData.position %>" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label>Salary</label>
+                                        <input type="text" name="salary" id="salary" class="form-control" value="<%= sampleData.salary %>" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <input type="submit" name="submit_button" class="btn btn-primary" value="Edit" />
+                            </div>
+                        </form>
+                        <script>
+                        document.getElementById('gender').value="<%= sampleData.gender %>";
+                        </script>
+                    </div>
+                </div>
+
+            <% } else { %>
+                
+                <% if (message.length > 0) { %>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <%= message %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                <% } %>
+                
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col">Sample Data</div>
+                        <div class="col">
+                            <a href="/sample_data/add" class="btn btn-success btn-sm float-end">Add</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>ID</th>
+                                <th>Full Name</th>
+                                <th>Address</th>
+                                <th>Phone Number</th>
+                                <th>Department</th>
+                                <th>Position</th>
+                                <th>Salary</th>
+                                <th>Action</th>
+                            </tr>
+                            <% if(sampleData.length > 0) { %>
+                               <% sampleData.forEach(function(data){ %>
+                            <tr>
+                                <td><%= data.id %></td>
+                                <td><%= data.full_names %></td>
+                                <td><%= data.address %></td>
+                                <td><%= data.phone_number %></td>
+                                <td><%= data.department %></td>
+                                <td><%= data.position %></td>
+                                <td><%= data.salary %></td>
+                                <td>
+                                    <a href="/sample_data/edit/<%= data.id %>" class="btn btn-primary btn-sm">Edit</a>
+                                    <a href="/delete/<%= data.id %>" class="btn btn-danger btn-sm">Delete</a>
+                                </td>
+                            </tr>
+                            <% }); } %>
+                            
+                        </table>
+                     </div>
+                </div>
+            </div>
+
+            <% } %>
+
+        </div> 
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    </body>
+</html>
